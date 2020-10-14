@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "ProductApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "productapi/product/get/1",
+      "applicationUrl": "http://localhost:5002",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

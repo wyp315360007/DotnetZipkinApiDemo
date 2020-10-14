@@ -1,0 +1,42 @@
+version: "3.6"
+services:
+  elasticsearch:
+    # 我使用的是7.5.0版本
+    image: elasticsearch:7.5.0
+    container_name: elasticsearch
+    restart: always
+    #暴露es端口
+    ports:
+      - 9200:9200
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      #es有内存要求
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      default:
+        aliases:
+          - elasticsearch
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    restart: always
+    networks:
+      default:
+        aliases:
+        - zipkin
+    environment:
+      #存储类型为es
+      - STORAGE_TYPE=elasticsearch
+      #es地址
+      - ES_HOSTS=elasticsearch:9200
+    ports:
+      - 9411:9411
+    #依赖es所以在es启动完成后在启动zipkin
+    depends_on:
+      - elasticsearch
