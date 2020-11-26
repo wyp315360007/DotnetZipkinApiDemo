@@ -1,10 +1,10 @@
-# docker-compose -p es-zipkin -f docker-compose-eszipkin.yml up
+# docker-compose -p -d es-zipkin -f docker-compose-eszipkin.yml up
 
 version: "3.6"
 services:
   elasticsearch:
     # 我使用的是7.5.0版本
-    image: elasticsearch:7.5.0
+    image: elasticsearch:7.7.0
     container_name: elasticsearch
     restart: always
     #暴露es端口
